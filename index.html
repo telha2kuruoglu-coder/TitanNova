@@ -1,124 +1,42 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TitanNova AI</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TitanNova AI V3</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(135deg,#050816,#111a3a,#2b145f);
-  color:white;
-  min-height:100vh;
-}
-header{
-  padding:22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.logo{
-  font-size:28px;
-  font-weight:900;
-  color:#8b5cff;
-}
-.lang{
-  background:#ffffff18;
-  color:white;
-  border:1px solid #ffffff33;
-  border-radius:12px;
-  padding:10px;
-}
-.hero{
-  padding:35px 20px;
-  text-align:center;
-}
-h1{
-  font-size:52px;
-  margin:20px 0 10px;
-}
-.gradient{
-  background:linear-gradient(90deg,#8b5cff,#00d4ff);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-p{
-  color:#ddd;
-  font-size:18px;
-  line-height:1.6;
-}
-.card{
-  max-width:850px;
-  margin:20px auto;
-  background:#ffffff12;
-  border:1px solid #ffffff24;
-  border-radius:22px;
-  padding:20px;
-  backdrop-filter:blur(10px);
-}
-.chat{
-  background:#070b1a;
-  border-radius:18px;
-  padding:15px;
-  min-height:220px;
-  text-align:left;
-}
-.msg{
-  margin:10px 0;
-  padding:12px;
-  border-radius:14px;
-}
-.ai{background:#21164b}
-.user{background:#123c55;text-align:right}
-.inputBox{
-  display:flex;
-  gap:10px;
-  margin-top:15px;
-}
-input{
-  flex:1;
-  padding:15px;
-  border-radius:14px;
-  border:none;
-  outline:none;
-  font-size:16px;
-}
-button{
-  padding:15px 22px;
-  border:none;
-  border-radius:14px;
-  background:#8b5cff;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-}
-.features{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:15px;
-  margin-top:20px;
-}
-.feature{
-  background:#ffffff14;
-  border-radius:18px;
-  padding:18px;
-}
-footer{
-  text-align:center;
-  padding:25px;
-  color:#aaa;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#050816;color:white}
+header{padding:16px;display:flex;justify-content:space-between;gap:10px;align-items:center;background:#090d1f;border-bottom:1px solid #ffffff22}
+.logo{font-size:24px;font-weight:900;background:linear-gradient(90deg,#8b5cff,#00d4ff);-webkit-background-clip:text;color:transparent}
+select,button,input{border:none;border-radius:12px;padding:12px;font-size:15px}
+select{background:#151b35;color:white}
+.hero{text-align:center;padding:35px 15px;background:radial-gradient(circle,#2b145f,#050816 70%)}
+h1{font-size:44px;margin:10px 0}
+p{color:#cfd3ff}
+.wrap{max-width:1050px;margin:auto;padding:16px}
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
+.card{background:#10162f;border:1px solid #ffffff22;border-radius:22px;padding:18px}
+.chat{height:340px;overflow:auto;background:#070b18;border-radius:18px;padding:14px}
+.msg{padding:12px;margin:10px 0;border-radius:14px;line-height:1.5}
+.ai{background:#251654}
+.user{background:#12435a;text-align:right}
+.inputbox{display:flex;gap:8px;margin-top:12px}
+input{flex:1}
+button{background:#8b5cff;color:white;font-weight:bold}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}
+.tool{background:#ffffff12;padding:15px;border-radius:18px;text-align:center}
+.status{color:#00ff99;font-weight:bold}
+.small{font-size:13px;color:#aaa}
+footer{text-align:center;color:#888;padding:25px}
+@media(min-width:850px){.grid{grid-template-columns:2fr 1fr}}
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="logo">🚀 TitanNova</div>
-  <select class="lang" onchange="changeLang(this.value)">
+  <div class="logo">🚀 TitanNova AI V3</div>
+  <select id="lang" onchange="changeLang()">
     <option value="tr">Türkçe</option>
     <option value="en">English</option>
     <option value="ar">العربية</option>
@@ -129,116 +47,133 @@ footer{
 </header>
 
 <section class="hero">
-  <h1><span class="gradient">TitanNova AI</span></h1>
-  <p id="subtitle">Dünyanın her dili için yeni nesil yapay zekâ platformu.</p>
-
-  <div class="card">
-    <h2 id="chatTitle">TitanNova Sohbet</h2>
-    <div class="chat" id="chat">
-      <div class="msg ai" id="welcome">
-        Merhaba, ben TitanNova. Şimdilik ilk sürümüm. Yakında gerçek yapay zekâ motoru bağlanacak.
-      </div>
-    </div>
-
-    <div class="inputBox">
-      <input id="userInput" placeholder="Mesajını yaz..." />
-      <button onclick="sendMessage()" id="sendBtn">Gönder</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Özellikler</h2>
-    <div class="features">
-      <div class="feature">🌍 Çok dilli destek</div>
-      <div class="feature">💬 Yapay zekâ sohbet</div>
-      <div class="feature">📄 Belge analizi</div>
-      <div class="feature">🖼️ Görsel analizi</div>
-      <div class="feature">💻 Kod asistanı</div>
-      <div class="feature">🎙️ Sesli konuşma hedefi</div>
-    </div>
-  </div>
+  <h1>TitanNova V3</h1>
+  <p id="sub">Sesli cevap destekli çok dilli yapay zekâ arayüzü.</p>
+  <p class="status">● Demo Mode Active</p>
 </section>
 
-<footer>
-  TitanNova v0.1 — Built for the future.
-</footer>
+<div class="wrap">
+<div class="grid">
+
+<div class="card">
+<h2 id="chatTitle">TitanNova Sohbet</h2>
+<div class="chat" id="chat">
+  <div class="msg ai" id="welcome">
+    Merhaba, ben TitanNova V3. Artık sesli cevap verebilirim.
+  </div>
+</div>
+
+<div class="inputbox">
+  <input id="input" placeholder="Mesajını yaz..." onkeydown="if(event.key==='Enter')sendMsg()">
+  <button onclick="sendMsg()" id="send">Gönder</button>
+</div>
+
+<p class="small">Bu sürüm demo AI + tarayıcı ses motoru kullanır. Gerçek AI motoru sonraki adımda bağlanacak.</p>
+</div>
+
+<div class="card">
+<h2>🔊 Ses Ayarları</h2>
+
+<p>Sesli cevap</p>
+<select id="voiceOn">
+  <option value="on">Açık</option>
+  <option value="off">Kapalı</option>
+</select>
+
+<p>Ses tipi</p>
+<select id="voiceType">
+  <option value="male">Erkek ses</option>
+  <option value="female">Kadın ses</option>
+</select>
+
+<p>Hız</p>
+<select id="speed">
+  <option value="0.8">Yavaş</option>
+  <option value="1" selected>Normal</option>
+  <option value="1.2">Hızlı</option>
+</select>
+
+<div class="tools" style="margin-top:18px">
+  <div class="tool">🌍 Çok dil</div>
+  <div class="tool">💬 Sohbet</div>
+  <div class="tool">🔊 Erkek/Kadın ses</div>
+  <div class="tool">🎙️ Sesli cevap</div>
+  <div class="tool">📷 Görsel hedefi</div>
+  <div class="tool">📄 Belge hedefi</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<footer>TitanNova AI V3 — Built by Talha Kuruoğlu</footer>
 
 <script>
-const texts = {
-  tr:{
-    subtitle:"Dünyanın her dili için yeni nesil yapay zekâ platformu.",
-    chatTitle:"TitanNova Sohbet",
-    welcome:"Merhaba, ben TitanNova. Şimdilik ilk sürümüm. Yakında gerçek yapay zekâ motoru bağlanacak.",
-    placeholder:"Mesajını yaz...",
-    send:"Gönder",
-    reply:"TitanNova şu anda demo modunda. Bir sonraki sürümde gerçek yapay zekâ bağlanacak."
-  },
-  en:{
-    subtitle:"The next-generation AI platform for every language in the world.",
-    chatTitle:"TitanNova Chat",
-    welcome:"Hello, I am TitanNova. This is my first version. A real AI engine will be connected soon.",
-    placeholder:"Type your message...",
-    send:"Send",
-    reply:"TitanNova is currently in demo mode. A real AI engine will be connected in the next version."
-  },
-  ar:{
-    subtitle:"منصة ذكاء اصطناعي متعددة اللغات للجيل القادم.",
-    chatTitle:"دردشة TitanNova",
-    welcome:"مرحباً، أنا TitanNova. هذه هي النسخة الأولى.",
-    placeholder:"اكتب رسالتك...",
-    send:"إرسال",
-    reply:"TitanNova حالياً في وضع تجريبي."
-  },
-  de:{
-    subtitle:"Die KI-Plattform der nächsten Generation für jede Sprache.",
-    chatTitle:"TitanNova Chat",
-    welcome:"Hallo, ich bin TitanNova. Dies ist meine erste Version.",
-    placeholder:"Nachricht schreiben...",
-    send:"Senden",
-    reply:"TitanNova ist derzeit im Demo-Modus."
-  },
-  fr:{
-    subtitle:"La plateforme d’IA nouvelle génération pour toutes les langues.",
-    chatTitle:"Chat TitanNova",
-    welcome:"Bonjour, je suis TitanNova. Ceci est ma première version.",
-    placeholder:"Écris ton message...",
-    send:"Envoyer",
-    reply:"TitanNova est actuellement en mode démo."
-  },
-  es:{
-    subtitle:"La plataforma de IA de nueva generación para todos los idiomas.",
-    chatTitle:"Chat TitanNova",
-    welcome:"Hola, soy TitanNova. Esta es mi primera versión.",
-    placeholder:"Escribe tu mensaje...",
-    send:"Enviar",
-    reply:"TitanNova está actualmente en modo demo."
-  }
+const data={
+tr:["Sesli cevap destekli çok dilli yapay zekâ arayüzü.","TitanNova Sohbet","Merhaba, ben TitanNova V3. Artık sesli cevap verebilirim.","Mesajını yaz...","Gönder","Seni anladım. Ben TitanNova V3. Şu anda demo modundayım ama sesli cevap verebiliyorum."],
+en:["A multilingual AI interface with voice replies.","TitanNova Chat","Hello, I am TitanNova V3. I can now reply with voice.","Type your message...","Send","I understand you. I am TitanNova V3. I am in demo mode, but I can speak."],
+ar:["واجهة ذكاء اصطناعي متعددة اللغات مع رد صوتي.","دردشة TitanNova","مرحباً، أنا TitanNova V3.","اكتب رسالتك...","إرسال","أنا TitanNova V3. أستطيع الرد بالصوت."],
+de:["Mehrsprachige KI-Oberfläche mit Sprachausgabe.","TitanNova Chat","Hallo, ich bin TitanNova V3.","Nachricht schreiben...","Senden","Ich bin TitanNova V3 und kann sprechen."],
+fr:["Interface IA multilingue avec réponse vocale.","Chat TitanNova","Bonjour, je suis TitanNova V3.","Écris ton message...","Envoyer","Je suis TitanNova V3 et je peux parler."],
+es:["Interfaz de IA multilingüe con respuesta de voz.","Chat TitanNova","Hola, soy TitanNova V3.","Escribe tu mensaje...","Enviar","Soy TitanNova V3 y puedo hablar."]
 };
 
-let currentLang = "tr";
+let current="tr";
+let voices=[];
 
-function changeLang(lang){
-  currentLang = lang;
-  document.getElementById("subtitle").innerText = texts[lang].subtitle;
-  document.getElementById("chatTitle").innerText = texts[lang].chatTitle;
-  document.getElementById("welcome").innerText = texts[lang].welcome;
-  document.getElementById("userInput").placeholder = texts[lang].placeholder;
-  document.getElementById("sendBtn").innerText = texts[lang].send;
+function loadVoices(){ voices=speechSynthesis.getVoices(); }
+speechSynthesis.onvoiceschanged=loadVoices;
+loadVoices();
+
+function changeLang(){
+ current=document.getElementById("lang").value;
+ const t=data[current];
+ document.getElementById("sub").innerText=t[0];
+ document.getElementById("chatTitle").innerText=t[1];
+ document.getElementById("welcome").innerText=t[2];
+ document.getElementById("input").placeholder=t[3];
+ document.getElementById("send").innerText=t[4];
 }
 
-function sendMessage(){
-  const input = document.getElementById("userInput");
-  const chat = document.getElementById("chat");
-  const text = input.value.trim();
-  if(!text) return;
+function sendMsg(){
+ const input=document.getElementById("input");
+ const chat=document.getElementById("chat");
+ const text=input.value.trim();
+ if(!text)return;
 
-  chat.innerHTML += `<div class="msg user">${text}</div>`;
-  setTimeout(()=>{
-    chat.innerHTML += `<div class="msg ai">${texts[currentLang].reply}</div>`;
-    chat.scrollTop = chat.scrollHeight;
-  },500);
+ chat.innerHTML+=`<div class="msg user">${escapeHtml(text)}</div>`;
+ input.value="";
 
-  input.value = "";
+ setTimeout(()=>{
+   const reply=data[current][5];
+   chat.innerHTML+=`<div class="msg ai">${reply}</div>`;
+   chat.scrollTop=chat.scrollHeight;
+   speak(reply);
+ },500);
+}
+
+function speak(text){
+ if(document.getElementById("voiceOn").value==="off")return;
+ if(!("speechSynthesis" in window))return;
+
+ speechSynthesis.cancel();
+ const msg=new SpeechSynthesisUtterance(text);
+ msg.lang=current==="tr"?"tr-TR":current==="en"?"en-US":current;
+
+ const type=document.getElementById("voiceType").value;
+ const selected=voices.find(v=>{
+   const name=v.name.toLowerCase();
+   if(type==="female")return name.includes("female")||name.includes("woman")||name.includes("zira")||name.includes("seda");
+   return name.includes("male")||name.includes("man")||name.includes("david")||name.includes("ahmet");
+ });
+
+ if(selected)msg.voice=selected;
+ msg.rate=parseFloat(document.getElementById("speed").value);
+ speechSynthesis.speak(msg);
+}
+
+function escapeHtml(text){
+ return text.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
 }
 </script>
 
