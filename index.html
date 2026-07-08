@@ -3,39 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TitanNova AI V3</title>
+<title>TitanNova AI V4</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#050816;color:white}
-header{padding:16px;display:flex;justify-content:space-between;gap:10px;align-items:center;background:#090d1f;border-bottom:1px solid #ffffff22}
-.logo{font-size:24px;font-weight:900;background:linear-gradient(90deg,#8b5cff,#00d4ff);-webkit-background-clip:text;color:transparent}
-select,button,input{border:none;border-radius:12px;padding:12px;font-size:15px}
+body.light{background:#f3f5ff;color:#111}
+header{padding:15px;display:flex;justify-content:space-between;gap:8px;align-items:center;background:#090d1f;border-bottom:1px solid #ffffff22}
+body.light header{background:white}
+.logo{font-size:23px;font-weight:900;background:linear-gradient(90deg,#8b5cff,#00d4ff);-webkit-background-clip:text;color:transparent}
+select,button,input{border:0;border-radius:12px;padding:11px;font-size:14px}
 select{background:#151b35;color:white}
-.hero{text-align:center;padding:35px 15px;background:radial-gradient(circle,#2b145f,#050816 70%)}
-h1{font-size:44px;margin:10px 0}
+body.light select{background:#eef0ff;color:#111}
+button{background:#8b5cff;color:white;font-weight:bold}
+.hero{text-align:center;padding:34px 14px;background:radial-gradient(circle,#2b145f,#050816 70%)}
+body.light .hero{background:linear-gradient(135deg,#eef0ff,#dfe7ff)}
+h1{font-size:42px;margin:8px 0}
 p{color:#cfd3ff}
-.wrap{max-width:1050px;margin:auto;padding:16px}
-.grid{display:grid;grid-template-columns:1fr;gap:16px}
-.card{background:#10162f;border:1px solid #ffffff22;border-radius:22px;padding:18px}
-.chat{height:340px;overflow:auto;background:#070b18;border-radius:18px;padding:14px}
-.msg{padding:12px;margin:10px 0;border-radius:14px;line-height:1.5}
+body.light p{color:#333}
+.wrap{max-width:1100px;margin:auto;padding:15px}
+.grid{display:grid;grid-template-columns:1fr;gap:15px}
+.card{background:#10162f;border:1px solid #ffffff22;border-radius:22px;padding:17px}
+body.light .card{background:white;border:1px solid #ddd}
+.chat{height:350px;overflow:auto;background:#070b18;border-radius:18px;padding:13px}
+body.light .chat{background:#f2f4ff}
+.msg{padding:12px;margin:9px 0;border-radius:14px;line-height:1.5}
 .ai{background:#251654}
 .user{background:#12435a;text-align:right}
+body.light .ai{background:#e6ddff}
+body.light .user{background:#d8f1ff}
 .inputbox{display:flex;gap:8px;margin-top:12px}
 input{flex:1}
-button{background:#8b5cff;color:white;font-weight:bold}
-.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}
-.tool{background:#ffffff12;padding:15px;border-radius:18px;text-align:center}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
+.tool{background:#ffffff12;padding:14px;border-radius:16px;text-align:center}
+body.light .tool{background:#eef0ff}
 .status{color:#00ff99;font-weight:bold}
 .small{font-size:13px;color:#aaa}
-footer{text-align:center;color:#888;padding:25px}
+footer{text-align:center;color:#888;padding:22px}
 @media(min-width:850px){.grid{grid-template-columns:2fr 1fr}}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">🚀 TitanNova AI V3</div>
+  <div class="logo">🚀 TitanNova AI V4</div>
   <select id="lang" onchange="changeLang()">
     <option value="tr">Türkçe</option>
     <option value="en">English</option>
@@ -43,13 +53,17 @@ footer{text-align:center;color:#888;padding:25px}
     <option value="de">Deutsch</option>
     <option value="fr">Français</option>
     <option value="es">Español</option>
+    <option value="ru">Русский</option>
+    <option value="zh">中文</option>
+    <option value="ja">日本語</option>
+    <option value="ko">한국어</option>
   </select>
 </header>
 
 <section class="hero">
-  <h1>TitanNova V3</h1>
-  <p id="sub">Sesli cevap destekli çok dilli yapay zekâ arayüzü.</p>
-  <p class="status">● Demo Mode Active</p>
+  <h1 id="title">TitanNova V4</h1>
+  <p id="sub">Daha güçlü, sesli, çok dilli yapay zekâ arayüzü.</p>
+  <p class="status">● V4 Demo Active</p>
 </section>
 
 <div class="wrap">
@@ -57,9 +71,10 @@ footer{text-align:center;color:#888;padding:25px}
 
 <div class="card">
 <h2 id="chatTitle">TitanNova Sohbet</h2>
+
 <div class="chat" id="chat">
   <div class="msg ai" id="welcome">
-    Merhaba, ben TitanNova V3. Artık sesli cevap verebilirim.
+    Merhaba, ben TitanNova V4. Sesli cevap verebilirim, tema değiştirebilirim ve daha gelişmiş demo cevaplar üretebilirim.
   </div>
 </div>
 
@@ -68,11 +83,17 @@ footer{text-align:center;color:#888;padding:25px}
   <button onclick="sendMsg()" id="send">Gönder</button>
 </div>
 
-<p class="small">Bu sürüm demo AI + tarayıcı ses motoru kullanır. Gerçek AI motoru sonraki adımda bağlanacak.</p>
+<p class="small">V4: demo zeka + sesli cevap + tema + çok dil. V5’te gerçek AI bağlantısı eklenecek.</p>
 </div>
 
 <div class="card">
-<h2>🔊 Ses Ayarları</h2>
+<h2>⚙️ Ayarlar</h2>
+
+<p>Tema</p>
+<select onchange="setTheme(this.value)">
+  <option value="dark">Karanlık</option>
+  <option value="light">Aydınlık</option>
+</select>
 
 <p>Sesli cevap</p>
 <select id="voiceOn">
@@ -93,63 +114,94 @@ footer{text-align:center;color:#888;padding:25px}
   <option value="1.2">Hızlı</option>
 </select>
 
-<div class="tools" style="margin-top:18px">
-  <div class="tool">🌍 Çok dil</div>
+<div class="tools" style="margin-top:16px">
+  <div class="tool">🌍 10 dil</div>
   <div class="tool">💬 Sohbet</div>
   <div class="tool">🔊 Erkek/Kadın ses</div>
-  <div class="tool">🎙️ Sesli cevap</div>
+  <div class="tool">🌙 Tema</div>
   <div class="tool">📷 Görsel hedefi</div>
-  <div class="tool">📄 Belge hedefi</div>
+  <div class="tool">🤖 V5 AI hazır</div>
 </div>
 </div>
 
 </div>
 </div>
 
-<footer>TitanNova AI V3 — Built by Talha Kuruoğlu</footer>
+<footer>TitanNova AI V4 — Built by Talha Kuruoğlu</footer>
 
 <script>
 const data={
-tr:["Sesli cevap destekli çok dilli yapay zekâ arayüzü.","TitanNova Sohbet","Merhaba, ben TitanNova V3. Artık sesli cevap verebilirim.","Mesajını yaz...","Gönder","Seni anladım. Ben TitanNova V3. Şu anda demo modundayım ama sesli cevap verebiliyorum."],
-en:["A multilingual AI interface with voice replies.","TitanNova Chat","Hello, I am TitanNova V3. I can now reply with voice.","Type your message...","Send","I understand you. I am TitanNova V3. I am in demo mode, but I can speak."],
-ar:["واجهة ذكاء اصطناعي متعددة اللغات مع رد صوتي.","دردشة TitanNova","مرحباً، أنا TitanNova V3.","اكتب رسالتك...","إرسال","أنا TitanNova V3. أستطيع الرد بالصوت."],
-de:["Mehrsprachige KI-Oberfläche mit Sprachausgabe.","TitanNova Chat","Hallo, ich bin TitanNova V3.","Nachricht schreiben...","Senden","Ich bin TitanNova V3 und kann sprechen."],
-fr:["Interface IA multilingue avec réponse vocale.","Chat TitanNova","Bonjour, je suis TitanNova V3.","Écris ton message...","Envoyer","Je suis TitanNova V3 et je peux parler."],
-es:["Interfaz de IA multilingüe con respuesta de voz.","Chat TitanNova","Hola, soy TitanNova V3.","Escribe tu mensaje...","Enviar","Soy TitanNova V3 y puedo hablar."]
+tr:["TitanNova V4","Daha güçlü, sesli, çok dilli yapay zekâ arayüzü.","TitanNova Sohbet","Merhaba, ben TitanNova V4. Sesli cevap verebilirim, tema değiştirebilirim ve daha gelişmiş demo cevaplar üretebilirim.","Mesajını yaz...","Gönder"],
+en:["TitanNova V4","A stronger multilingual AI interface with voice replies.","TitanNova Chat","Hello, I am TitanNova V4. I can speak, change theme and generate better demo replies.","Type your message...","Send"],
+ar:["TitanNova V4","واجهة ذكاء اصطناعي متعددة اللغات مع صوت.","دردشة TitanNova","مرحباً، أنا TitanNova V4.","اكتب رسالتك...","إرسال"],
+de:["TitanNova V4","Stärkere mehrsprachige KI mit Stimme.","TitanNova Chat","Hallo, ich bin TitanNova V4.","Nachricht schreiben...","Senden"],
+fr:["TitanNova V4","Interface IA multilingue avec voix.","Chat TitanNova","Bonjour, je suis TitanNova V4.","Écris ton message...","Envoyer"],
+es:["TitanNova V4","IA multilingüe con voz.","Chat TitanNova","Hola, soy TitanNova V4.","Escribe tu mensaje...","Enviar"],
+ru:["TitanNova V4","Многоязычный ИИ с голосом.","Чат TitanNova","Здравствуйте, я TitanNova V4.","Введите сообщение...","Отправить"],
+zh:["TitanNova V4","多语言语音人工智能界面。","TitanNova 聊天","你好，我是 TitanNova V4。","输入消息...","发送"],
+ja:["TitanNova V4","音声対応の多言語AI。","TitanNova チャット","こんにちは、TitanNova V4です。","メッセージを入力...","送信"],
+ko:["TitanNova V4","음성 지원 다국어 AI.","TitanNova 채팅","안녕하세요, TitanNova V4입니다.","메시지를 입력하세요...","보내기"]
 };
 
 let current="tr";
 let voices=[];
 
 function loadVoices(){ voices=speechSynthesis.getVoices(); }
-speechSynthesis.onvoiceschanged=loadVoices;
-loadVoices();
+if("speechSynthesis" in window){
+  speechSynthesis.onvoiceschanged=loadVoices;
+  loadVoices();
+}
 
 function changeLang(){
  current=document.getElementById("lang").value;
- const t=data[current];
- document.getElementById("sub").innerText=t[0];
- document.getElementById("chatTitle").innerText=t[1];
- document.getElementById("welcome").innerText=t[2];
- document.getElementById("input").placeholder=t[3];
- document.getElementById("send").innerText=t[4];
+ let t=data[current];
+ document.getElementById("title").innerText=t[0];
+ document.getElementById("sub").innerText=t[1];
+ document.getElementById("chatTitle").innerText=t[2];
+ document.getElementById("welcome").innerText=t[3];
+ document.getElementById("input").placeholder=t[4];
+ document.getElementById("send").innerText=t[5];
+}
+
+function setTheme(v){
+ document.body.className = v==="light" ? "light" : "";
 }
 
 function sendMsg(){
- const input=document.getElementById("input");
- const chat=document.getElementById("chat");
- const text=input.value.trim();
+ let input=document.getElementById("input");
+ let chat=document.getElementById("chat");
+ let text=input.value.trim();
  if(!text)return;
 
  chat.innerHTML+=`<div class="msg user">${escapeHtml(text)}</div>`;
  input.value="";
 
  setTimeout(()=>{
-   const reply=data[current][5];
+   let reply=smartReply(text);
    chat.innerHTML+=`<div class="msg ai">${reply}</div>`;
    chat.scrollTop=chat.scrollHeight;
    speak(reply);
  },500);
+}
+
+function smartReply(text){
+ let lower=text.toLowerCase();
+
+ if(lower.includes("merhaba")||lower.includes("selam")||lower.includes("hello"))
+   return current==="tr" ? "Merhaba. Ben TitanNova V4. Sana yardımcı olmaya hazırım." : "Hello. I am TitanNova V4. I am ready to help you.";
+
+ if(lower.includes("pi")||lower.includes("network"))
+   return current==="tr" ? "Pi Network hakkında yardımcı olabilirim. V5 sürümünde gerçek AI bağlanınca daha detaylı analiz yapacağım." : "I can help with Pi Network. In V5, real AI will provide deeper answers.";
+
+ if(lower.includes("kod")||lower.includes("code"))
+   return current==="tr" ? "Kod yazma desteği TitanNova’nın hedef özelliklerinden biri. Şimdilik demo modundayım." : "Coding support is one of TitanNova’s target features. I am currently in demo mode.";
+
+ if(lower.includes("ses")||lower.includes("voice"))
+   return current==="tr" ? "Sesli cevap özelliğim açık. Erkek veya kadın ses seçebilirsin." : "Voice reply is enabled. You can select male or female voice.";
+
+ return current==="tr"
+ ? "Seni anladım. Ben TitanNova V4 demo modundayım. V5’te gerçek yapay zekâ motoru bağlanacak."
+ : "I understand you. I am TitanNova V4 in demo mode. A real AI engine will be connected in V5.";
 }
 
 function speak(text){
@@ -157,14 +209,16 @@ function speak(text){
  if(!("speechSynthesis" in window))return;
 
  speechSynthesis.cancel();
- const msg=new SpeechSynthesisUtterance(text);
- msg.lang=current==="tr"?"tr-TR":current==="en"?"en-US":current;
+ let msg=new SpeechSynthesisUtterance(text);
 
- const type=document.getElementById("voiceType").value;
- const selected=voices.find(v=>{
-   const name=v.name.toLowerCase();
-   if(type==="female")return name.includes("female")||name.includes("woman")||name.includes("zira")||name.includes("seda");
-   return name.includes("male")||name.includes("man")||name.includes("david")||name.includes("ahmet");
+ const langMap={tr:"tr-TR",en:"en-US",ar:"ar-SA",de:"de-DE",fr:"fr-FR",es:"es-ES",ru:"ru-RU",zh:"zh-CN",ja:"ja-JP",ko:"ko-KR"};
+ msg.lang=langMap[current]||"en-US";
+
+ let type=document.getElementById("voiceType").value;
+ let selected=voices.find(v=>{
+   let n=v.name.toLowerCase();
+   if(type==="female")return n.includes("female")||n.includes("woman")||n.includes("zira")||n.includes("seda");
+   return n.includes("male")||n.includes("man")||n.includes("david")||n.includes("ahmet");
  });
 
  if(selected)msg.voice=selected;
